@@ -24,6 +24,7 @@ let selectedTime = null;
 let selectedCourse = '';
 let adminMode = false;
 const bookings = [];
+const API_BASE = window.ZENTRIX_API_BASE || '';
 
 const coursePrices = {
   'HTML Fundamentals': 1000,
@@ -155,7 +156,7 @@ bookingForm.addEventListener('submit', (event) => {
     const bookingObj = { name, course, dateText, selectedTime, phone, email, bookingText, screenshot: event.target.result };
 
     // try to POST to server first; fall back to localStorage if offline
-    fetch('/api/bookings', {
+    fetch(`${API_BASE}/api/bookings`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(bookingObj),
@@ -218,7 +219,7 @@ function refreshAdminList() {
 
 // Fetch bookings from server (admin) when passphrase is provided
 function fetchAdminBookings(passphrase) {
-  return fetch(`/api/bookings?pass=${encodeURIComponent(passphrase)}`)
+  return fetch(`${API_BASE}/api/bookings?pass=${encodeURIComponent(passphrase)}`)
     .then((r) => {
       if (!r.ok) throw new Error('unauthorized');
       return r.json();
