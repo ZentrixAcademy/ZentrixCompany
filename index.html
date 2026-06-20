@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zentrix Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="zentrix-favicon.png" type="image/png" />
+    <link rel="shortcut icon" href="zentrix-favicon.png" />
+    <link rel="apple-touch-icon" href="zentrix-favicon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand">
+          <img src="zentrix-logo.png" alt="Zentrix logo" class="brand-logo" />
+          <div>
+            <p class="eyebrow">Zentrix</p>
+            <h1>Technology Academy</h1>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="#about">About</a>
+          <a href="#courses">Courses</a>
+          <a href="#booking">Booking</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+          <button class="admin-badge" id="adminIconBtn" type="button" aria-label="Manage bookings">
+            <img src="zentrix-logo.png" alt="Z" class="admin-badge-icon" />
+          </button>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero" id="hero">
+          <div class="hero-copy glass-panel">
+            <span class="label">Premium Tech Education</span>
+            <h2>Build, Innovate, Create.</h2>
+            <p>
+              Learn HTML, CSS, JavaScript, and Robotics with practical, mentor-led
+              lessons. Demo sessions are available for ₹100 per 10-minute trial.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#booking">Book Demo</a>
+              <a class="btn btn-secondary" href="#courses">View Courses</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-grid about" id="about">
+          <div class="section-header">
+            <p class="section-eyebrow">About Zentrix</p>
+            <h3>Shaping the next generation of builders, coders, and creators.</h3>
+          </div>
+          <div class="about-grid">
+            <div class="glass-panel card">
+              <h4>Our Mission</h4>
+              <p>
+                Empower students through technology-led education with practical
+                pathways into web, app, AI, IoT and robotics innovation.
+              </p>
+            </div>
+            <div class="glass-panel card">
+              <h4>Vision</h4>
+              <p>
+                Create a premium academy experience that feels like a startup lab,
+                inspiring learners to launch real products and career-ready skills.
+              </p>
+            </div>
+            <div class="glass-panel card">
+              <h4>Learning Culture</h4>
+              <p>
+                Hands-on sessions, mentor feedback, and project-based learning make
+                every course practical and future-focused.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-grid courses" id="courses">
+          <div class="section-header">
+            <p class="section-eyebrow">Live Courses</p>
+            <h3>Choose one of four technical course paths designed for learners.</h3>
+          </div>
+          <div class="course-grid">
+            <article class="glass-panel course-card">
+              <span class="course-tag">Web</span>
+              <h4>HTML Fundamentals</h4>
+              <p>Structure websites with semantic HTML, accessible markup, and modern best practices.</p>
+              <p class="course-price">₹1000</p>
+              <button class="btn btn-primary course-book-button" type="button" data-course="HTML Fundamentals">Book Now</button>
+            </article>
+            <article class="glass-panel course-card">
+              <span class="course-tag">Design</span>
+              <h4>CSS Fundamentals</h4>
+              <p>Build polished UI with layouts, responsive design, animations, and glassmorphism.</p>
+              <p class="course-price">₹1500</p>
+              <button class="btn btn-primary course-book-button" type="button" data-course="CSS Fundamentals">Book Now</button>
+            </article>
+            <article class="glass-panel course-card">
+              <span class="course-tag">Logic</span>
+              <h4>JavaScript Fundamentals</h4>
+              <p>Turn designs into interactive applications with DOM scripting and modern workflows.</p>
+              <p class="course-price">₹2000</p>
+              <button class="btn btn-primary course-book-button" type="button" data-course="JavaScript Fundamentals">Book Now</button>
+            </article>
+            <article class="glass-panel course-card">
+              <span class="course-tag">Innovation</span>
+              <h4>IoT and Robotics</h4>
+              <p>Build connected prototypes, sensor projects, and automation systems with real hardware.</p>
+              <p class="course-price">₹1000</p>
+              <button class="btn btn-primary course-book-button" type="button" data-course="IoT and Robotics">Book Now</button>
+            </article>
+          </div>
+        </section>
+
+        <section class="booking" id="booking">
+          <div class="section-header">
+            <p class="section-eyebrow">Book Your Demo</p>
+            <h3>Reserve a slot and join a hands-on introduction class.</h3>
+          </div>
+          <div class="booking-layout">
+            <div class="glass-panel booking-panel">
+              <h4>Select a Demo Date</h4>
+              <div class="date-slider" id="dateSlider"></div>
+              <h4>Choose a Time Slot</h4>
+              <div class="time-grid" id="timeGrid"></div>
+            </div>
+            <form class="glass-panel booking-form" id="bookingForm">
+              <h4>Student Registration</h4>
+              <p class="selected-course-text">Selected course: <strong id="selectedCourseLabel">None</strong></p>
+              <label>
+                Name
+                <input type="text" id="studentName" placeholder="Alex Jordan" required />
+              </label>
+              <label>
+                Email
+                <input type="email" id="studentEmail" placeholder="alex@zentrix.edu" required />
+              </label>
+              <label>
+                Phone
+                <input type="tel" id="studentPhone" placeholder="+91 63831 03433" required />
+              </label>
+              <label>
+                Course
+                <select id="courseSelect" required>
+                  <option value="">Choose a course</option>
+                  <option value="HTML Fundamentals">HTML Fundamentals - ₹1000</option>
+                  <option value="CSS Fundamentals">CSS Fundamentals - ₹1500</option>
+                  <option value="JavaScript Fundamentals">JavaScript Fundamentals - ₹2000</option>
+                  <option value="IoT and Robotics">IoT and Robotics - ₹1000</option>
+                </select>
+              </label>
+              <label>
+                Booking screenshot
+                <input type="file" id="bookingScreenshot" accept="image/*" required />
+              </label>
+              <div class="screenshot-preview" id="screenshotPreview" hidden>
+                <p>Screenshot preview</p>
+                <img id="screenshotPreviewImg" alt="Booking screenshot preview" />
+              </div>
+              <p class="demo-note">Demo session: 10 minutes, ₹100. Full course fees are shown above. A screenshot is required to confirm the booking.</p>
+              <button class="btn btn-primary" type="submit">Confirm Booking</button>
+            </form>
+          </div>
+          <p class="booking-note">Booking requests are received directly by the Zentrix team via this website. Select the screenshot and confirm to finish.</p>
+        </section>
+
+        <div class="modal-backdrop hidden" id="modalBackdrop"></div>
+
+        <div class="modal-window glass-panel hidden" id="confirmationModal">
+          <button class="modal-close" id="confirmationModalClose" type="button">×</button>
+          <h4>Thanks for booking</h4>
+          <p id="confirmationModalText"></p>
+          <div class="booking-details-box">
+            <h5>Booking Request Details</h5>
+            <pre id="confirmationModalDetails"></pre>
+          </div>
+          <div class="modal-actions">
+            <a class="btn btn-secondary" id="modalWhatsappLink" target="_blank" rel="noopener">Share via WhatsApp</a>
+            <a class="btn btn-secondary" id="modalEmailLink" target="_blank" rel="noopener">Send email</a>
+            <button class="btn btn-primary" type="button" id="modalDoneBtn">Done</button>
+          </div>
+        </div>
+
+        <div class="modal-window glass-panel hidden" id="adminModal">
+          <button class="modal-close" id="adminModalClose" type="button">×</button>
+          <h4>Manage Bookings</h4>
+          <p id="adminModalNotice" class="admin-modal-notice">No bookings yet.</p>
+          <div id="adminModalList" class="booking-log-list"></div>
+        </div>
+
+        <section class="why-choose" id="why">
+          <div class="section-header">
+            <p class="section-eyebrow">Why Choose Zentrix</p>
+            <h3>Learn with mentors, build with purpose, and launch with confidence.</h3>
+          </div>
+          <div class="benefits-grid">
+            <div class="glass-panel benefit-card">
+              <h4>Hands-on Projects</h4>
+              <p>Every module includes live builds that prepare students for real work.</p>
+            </div>
+            <div class="glass-panel benefit-card">
+              <h4>Industry Curriculum</h4>
+              <p>Courses designed around market needs and startup-grade product thinking.</p>
+            </div>
+            <div class="glass-panel benefit-card">
+              <h4>Mentor Support</h4>
+              <p>Expert guidance, code reviews, and workshop-led learning for every student.</p>
+            </div>
+            <div class="glass-panel benefit-card">
+              <h4>Certification</h4>
+              <p>Graduate with a certificate and portfolio-ready projects that showcase your skills.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="faq" id="faq">
+          <div class="section-header">
+            <p class="section-eyebrow">FAQ</p>
+            <h3>Answers to the questions students ask most.</h3>
+          </div>
+          <div class="faq-grid">
+            <div class="glass-panel faq-card">
+              <h4>Who can join?</h4>
+              <p>Beginners, aspiring coders, and students who want to build real projects are all welcome.</p>
+            </div>
+            <div class="glass-panel faq-card">
+              <h4>What tools do I need?</h4>
+              <p>Just a laptop, stable internet, and a curiosity to learn. We provide tools and tutorials.</p>
+            </div>
+            <div class="glass-panel faq-card">
+              <h4>How are classes delivered?</h4>
+              <p>Interactive online sessions, recorded lessons, and guided practice workshops.</p>
+            </div>
+            <div class="glass-panel faq-card">
+              <h4>Can I start immediately?</h4>
+              <p>Yes. Book a free demo and we’ll help you choose the right course path fast.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="contact" id="contact">
+          <div class="section-header">
+            <p class="section-eyebrow">Get In Touch</p>
+            <h3>Connect with us on socials or send a direct message.</h3>
+          </div>
+          <div class="contact-grid">
+            <div class="glass-panel contact-card">
+              <h4>Instagram</h4>
+              <p>@zentrix.academy</p>
+            </div>
+            <div class="glass-panel contact-card">
+              <h4>Email</h4>
+              <p>hello@zentrixacademy.com</p>
+            </div>
+            <div class="glass-panel contact-card">
+              <h4>WhatsApp</h4>
+              <p>+91 63831 03433</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div>
+          <p class="footer-logo">Zentrix</p>
+          <p>A premium academy for modern learners in web, app, AI, IoT and robotics.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#about">About</a>
+          <a href="#courses">Courses</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-socials">
+          <a href="#">Instagram</a>
+          <a href="#">WhatsApp</a>
+          <a href="#">Email</a>
+        </div>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
