@@ -29,6 +29,12 @@ let adminMode = false;
 const bookings = [];
 const SUPABASE_URL = window.ZENTRIX_SUPABASE_URL;
 const SUPABASE_KEY = window.ZENTRIX_SUPABASE_ANON_KEY;
+const SUPABASE_CONFIGURED = Boolean(
+  SUPABASE_URL &&
+  SUPABASE_KEY &&
+  !SUPABASE_URL.includes('YOUR_PROJECT_ID') &&
+  !SUPABASE_KEY.includes('YOUR_ANON_KEY')
+);
 const SUPABASE_HEADERS = {
   apikey: SUPABASE_KEY,
   Authorization: `Bearer ${SUPABASE_KEY}`,
@@ -187,9 +193,9 @@ bookingForm.addEventListener('submit', (event) => {
     };
 
     // Check if Supabase is properly configured
-    if (!SUPABASE_URL || !SUPABASE_KEY) {
-      alert('Supabase credentials are missing. Make sure the URL and anon key are defined in index.html before loading script.js.');
-      console.error('Supabase credentials missing:', { SUPABASE_URL, SUPABASE_KEY });
+    if (!SUPABASE_CONFIGURED) {
+      alert('Supabase is not configured. Replace the placeholder URL and anon key in index.html with your actual Supabase credentials.');
+      console.error('Supabase credentials invalid or missing:', { SUPABASE_URL, SUPABASE_KEY });
       return;
     }
 
