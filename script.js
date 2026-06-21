@@ -174,7 +174,7 @@ function selectTime(element, time) {
   document.getElementById('bookingForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-bookingForm.addEventListener('submit', (event) => {
+bookingForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const name = document.getElementById('studentName').value.trim();
   const email = document.getElementById('studentEmail').value.trim();
