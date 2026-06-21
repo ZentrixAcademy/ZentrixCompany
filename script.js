@@ -27,14 +27,33 @@ let selectedTime = null;
 let selectedCourse = '';
 let adminMode = false;
 const bookings = [];
-const SUPABASE_URL = window.ZENTRIX_SUPABASE_URL;
-const SUPABASE_KEY = window.ZENTRIX_SUPABASE_ANON_KEY;
+let SUPABASE_URL = sessionStorage.getItem('ZENTRIX_SUPABASE_URL') || window.ZENTRIX_SUPABASE_URL;
+let SUPABASE_KEY = sessionStorage.getItem('ZENTRIX_SUPABASE_KEY') || window.ZENTRIX_SUPABASE_ANON_KEY;
+
+function promptForSupabaseCredentials() {
+  const url = prompt('Enter Supabase Project URL (https://your-project.supabase.co):', SUPABASE_URL || '');
+  const key = prompt('Enter Supabase anon/publishable key (for testing only):', SUPABASE_KEY || '');
+  if (url) sessionStorage.setItem('ZENTRIX_SUPABASE_URL', url);
+  if (key) sessionStorage.setItem('ZENTRIX_SUPABASE_KEY', key);
+  SUPABASE_URL = url || SUPABASE_URL;
+  SUPABASE_KEY = key || SUPABASE_KEY;
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.shiftKey && e.key.toLowerCase() === 's') {
+    promptForSupabaseCredentials();
+    alert('Supabase credentials saved to sessionStorage. Reloading page...');
+    location.reload();
+  }
+});
+
 const SUPABASE_CONFIGURED = Boolean(
   SUPABASE_URL &&
   SUPABASE_KEY &&
   !SUPABASE_URL.includes('YOUR_PROJECT_ID') &&
   !SUPABASE_KEY.includes('YOUR_ANON_KEY')
 );
+
 const SUPABASE_HEADERS = {
   apikey: SUPABASE_KEY,
   Authorization: `Bearer ${SUPABASE_KEY}`,
