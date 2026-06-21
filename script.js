@@ -186,6 +186,13 @@ bookingForm.addEventListener('submit', (event) => {
       createdAt: new Date().toISOString(),
     };
 
+    // Check if Supabase is properly configured
+    if (SUPABASE_URL.includes('YOUR_PROJECT_ID') || SUPABASE_KEY.includes('YOUR_ANON_KEY')) {
+      alert('Supabase not configured. Add your Supabase URL and Key in index.html before the script tag.');
+      console.error('Supabase credentials not configured:', { SUPABASE_URL, SUPABASE_KEY });
+      return;
+    }
+
     fetch(`${SUPABASE_URL}/rest/v1/bookings`, {
       method: 'POST',
       headers: SUPABASE_HEADERS,
@@ -194,7 +201,13 @@ bookingForm.addEventListener('submit', (event) => {
       .then(async (r) => {
         const data = await r.json();
         if (!r.ok) {
-          throw new Error(data?.message || 'Booking failed');
+          console.error('Supabase API Error:', {
+            status: r.status,
+            statusText: r.statusText,
+            response: data,
+            url: `${SUPABASE_URL}/rest/v1/bookings`,
+          });
+          throw new Error(data?.message || data?.error_description || 'Booking failed');
         }
         const saved = Array.isArray(data) ? data[0] : data;
         bookings.unshift(saved);
@@ -202,8 +215,8 @@ bookingForm.addEventListener('submit', (event) => {
         openModal(confirmationModal);
       })
       .catch((error) => {
-        console.error('Supabase booking error', error);
-        alert('Booking could not be saved to Supabase. Please check your backend settings and try again.');
+        console.error('Supabase booking error:', error);
+        alert(`Booking could not be saved to Supabase.\n\nError: ${error.message}\n\nCheck browser console (F12) for details. Ensure:\n1. Supabase URL and Key are configured in index.html\n2. The "bookings" table exists in Supabase\n3. RLS policies allow public INSERT`);
       });
   };
   reader.readAsDataURL(screenshotFile);
