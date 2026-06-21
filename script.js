@@ -27,8 +27,8 @@ let selectedTime = null;
 let selectedCourse = '';
 let adminMode = false;
 const bookings = [];
-const SUPABASE_URL = 'https://rezdcoubniwsfkqcdgmx.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlemRjb3Vibml3cWNkZ214Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwMDY2NzAsImV4cCI6MjA5NzU4MjY3MH0.9mYpJKiWRhU4ZHyK6NebCbo3tOzy6VWZqVf-UyLO53I';
+const SUPABASE_URL = window.ZENTRIX_SUPABASE_URL;
+const SUPABASE_KEY = window.ZENTRIX_SUPABASE_ANON_KEY;
 const SUPABASE_HEADERS = {
   apikey: SUPABASE_KEY,
   Authorization: `Bearer ${SUPABASE_KEY}`,
@@ -187,9 +187,9 @@ bookingForm.addEventListener('submit', (event) => {
     };
 
     // Check if Supabase is properly configured
-    if (SUPABASE_URL.includes('YOUR_PROJECT_ID') || SUPABASE_KEY.includes('YOUR_ANON_KEY')) {
-      alert('Supabase not configured. Add your Supabase URL and Key in index.html before the script tag.');
-      console.error('Supabase credentials not configured:', { SUPABASE_URL, SUPABASE_KEY });
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
+      alert('Supabase credentials are missing. Make sure the URL and anon key are defined in index.html before script.js.');
+      console.error('Supabase credentials missing:', { SUPABASE_URL, SUPABASE_KEY });
       return;
     }
 
