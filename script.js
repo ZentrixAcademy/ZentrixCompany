@@ -182,14 +182,11 @@ bookingForm.addEventListener('submit', (event) => {
   reader.onload = (event) => {
     const bookingObj = {
       name,
-      course,
-      dateText,
-      selectedTime,
-      phone,
       email,
-      bookingText,
-      screenshot: event.target.result,
-      createdAt: new Date().toISOString(),
+      phone,
+      booking_date: dateText,
+      booking_time: selectedTime,
+      screenshot_data: event.target.result,
     };
 
     // Check if Supabase is properly configured
