@@ -62,6 +62,10 @@ const SUPABASE_HEADERS = {
   Prefer: 'return=representation',
 };
 
+const supabaseClient = (window.supabase && window.supabase.createClient && SUPABASE_CONFIGURED)
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+  : null;
+
 const coursePrices = {
   'HTML Fundamentals': 1000,
   'CSS Fundamentals': 1500,
@@ -216,35 +220,28 @@ bookingForm.addEventListener('submit', (event) => {
       return;
     }
 
-    fetch(`${SUPABASE_URL}/rest/v1/bookings`, {
-      method: 'POST',
-      headers: SUPABASE_HEADERS,
-      body: JSON.stringify(bookingObj),
-    })
-      .then(async (r) => {
-        const data = await r.json();
-        if (!r.ok) {
-          console.error('Supabase API Error:', {
-            status: r.status,
-            statusText: r.statusText,
-            response: data,
-            url: `${SUPABASE_URL}/rest/v1/bookings`,
-          });
-          const message = data?.message || data?.error_description || 'Booking failed';
-          if (r.status === 401 || message.toLowerCase().includes('invalid api key')) {
-            throw new Error('Invalid Supabase anon key. Regenerate the anon key in Supabase and update index.html.');
-          }
-          throw new Error(message);
-        }
-        const saved = Array.isArray(data) ? data[0] : data;
-        bookings.unshift(saved);
-        refreshAdminList();
-        openModal(confirmationModal);
-      })
-      .catch((error) => {
-        console.error('Supabase booking error:', error);
-        alert(`Booking could not be saved to Supabase.\n\nError: ${error.message}\n\nCheck browser console (F12) for details. Ensure:\n1. Supabase URL and Key are configured in index.html\n2. The "bookings" table exists in Supabase\n3. RLS policies allow public INSERT`);
-      });
+    const useSupabaseClient = Boolean(supabaseClient);
+    if (!useSupabaseClient) {
+      throw new Error('Supabase client unavailable. Check that the Supabase JS client is loaded and the URL/key are configured correctly.');
+    }
+
+    const { data, error } = await supabaseClient
+      .from('bookings')
+      .insert([bookingObj])
+      .select();
+
+    if (error) {
+      console.error('Supabase API Error:', error);
+      if (error.status === 401 || error.message.toLowerCase().includes('invalid api key') || error.message.toLowerCase().includes('unauthorized')) {
+        throw new Error('Invalid Supabase key or insufficient permissions. Ensure the key is valid for the current project and that the bookings table allows inserts.');
+      }
+      throw new Error(error.message || 'Booking failed');
+    }
+
+    const saved = Array.isArray(data) ? data[0] : data;
+    bookings.unshift(saved);
+    refreshAdminList();
+    openModal(confirmationModal);
   };
   reader.readAsDataURL(screenshotFile);
 
